@@ -22,8 +22,10 @@ class Bottle {
     imageMode(CENTER);
     image(sweep, 0, 0, 2 * radius, 2 * radius);
     fill(color(0,0,0));
-    noStroke();
     ellipse(0, 0, 50, 50);
+    strokeWeight(8);
+    noFill();
+    ellipse(0, 0, radius, radius);
     popMatrix();
   }
   
