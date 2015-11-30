@@ -21,6 +21,9 @@ class Bottle {
     rotate(radians(-deg));
     imageMode(CENTER);
     image(sweep, 0, 0, 2 * radius, 2 * radius);
+    fill(color(0,0,0));
+    noStroke();
+    ellipse(0, 0, 50, 50);
     popMatrix();
   }
   
