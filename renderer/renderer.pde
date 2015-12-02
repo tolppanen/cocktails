@@ -18,8 +18,11 @@ void draw() {
   for (Bottle bottle : bottles) {
     bottle.drawThis(counter);
   }
-  counter = (counter < 60) ? counter + 1 : 0;
+  counter = (counter < 120) ? counter + 1 : 0;
 }
+
+// The following pieces of code are here for testing: 
+// Dummy data & mouse events for controlling the bottles.
 
 void testData() {
   bottles.add(new Bottle("Vodka", 90, 90, 50));
@@ -27,5 +30,13 @@ void testData() {
   bottles.add(new Bottle("Cola", 180, 500, 100));
   bottles.add(new Bottle("Sprite", 900, 300, 70));
   bottles.add(new Bottle("Something", 1000, 200, 80));
+}
+
+void mouseClicked() {
+  for (Bottle bottle : bottles) {
+    if (bottle.isHere(mouseX, mouseY)) {
+      bottle.toggleSelect();
+    }
+  }
 }
   
