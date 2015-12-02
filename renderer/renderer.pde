@@ -9,7 +9,7 @@ ArrayList<Bottle> bottles = new ArrayList<Bottle>();
 
 
 void setup() {
-  size(widthX, heightY);
+  size(1280, 720);
   background(0, 0, 0);
   testData();
 }

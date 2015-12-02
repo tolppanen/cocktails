@@ -17,6 +17,7 @@ void setup() {
     Cocktail cocktailName = new Cocktail(item.getString("name"));
     recipes.add(cocktailName);
     for(int t = 1; t<values.size(); t++) {
+      println(bottles);
       JSONObject currentRecipe = values.getJSONObject(t);
       cocktailName.ingredients.put(getOrCreate(currentRecipe.getString("ingredient")), currentRecipe.getFloat("amount"));
     }    
@@ -31,15 +32,27 @@ void setup() {
    }
    println("=====================================");
  }
+ println(bottles);
 };
 
 
 // This only creates new bottles if such incredient has not been seen in another recipe  yet
 Ingredient getOrCreate(String check) {
-  for(int k = 0; k < bottles.size(); k++){
-    if(bottles.get(k).toString() == check) return bottles.get(k);
+  int finder = bottleExists(check);
+  if(finder != -1)  return bottles.get(finder);
+  else {
+      Ingredient createdIngredient = new Ingredient(check);
+      bottles.add(createdIngredient);
+      return createdIngredient; 
   }
-  Ingredient createdIngredient = new Ingredient(check);
-  bottles.add(createdIngredient);
-  return createdIngredient;
 };
+
+
+int bottleExists(String check) {
+    int found = -1;
+    for(int k = 0; k < bottles.size(); k++){
+      println(bottles.get(k).ingredientName);
+      if(bottles.get(k).ingredientName.equals(check)) found = k;
+    }
+    return found;
+}
