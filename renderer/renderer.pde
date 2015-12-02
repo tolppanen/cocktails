@@ -15,6 +15,12 @@ void setup() {
 }
 
 void draw() {
+  
+  //Draw the mixing glass
+  fill(color(0, 255, 0));
+  ellipse(width/2, 30, 30, 30);
+  
+  //Draw all the bottles
   for (Bottle bottle : bottles) {
     bottle.drawThis(counter);
   }
@@ -36,8 +42,8 @@ void mouseClicked() {
   for (Bottle bottle : bottles) {
     if (bottle.isHere(mouseX, mouseY)) {
       bottle.toggleSelect();
+      bottle.toggleIncluded();
     }
   }
 }
-  
   
