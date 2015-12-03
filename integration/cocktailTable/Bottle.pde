@@ -5,6 +5,7 @@ class Bottle {
   int locationY;
   int radius;
   boolean selected = false;
+ boolean included = false; // If it's included in the recipe at all
   PImage sweep = loadImage("sweep2.png");
   
   Bottle(Ingredient name, int x, int y, int size) {
@@ -18,6 +19,10 @@ class Bottle {
     return selected;
   };
   
+    boolean isIncluded() {
+    return included;
+  }
+  
   boolean isHere(int mx, int my) {
     if (abs(mx - locationX) < 100 && abs(my - locationY) < 100) {
       return true;
@@ -30,6 +35,9 @@ class Bottle {
     this.selected = this.selected ? false : true;
   }
     
+      void toggleIncluded() {
+    this.included = this.included ? false : true;
+  }
   
   void drawThis(int counter) {
     float deg = 3.0 * counter;

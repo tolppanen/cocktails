@@ -4,8 +4,10 @@ class Bottle {
   int locationX;
   int locationY;
   int radius;
-  boolean selected = false;
+  boolean selected = false; // If this is the ingredient to be used
+  boolean included = false; // If it's included in the recipe at all
   PImage sweep = loadImage("sweep2.png");
+  PImage redSweep = loadImage("sweep2red.png");
   
   Bottle(String name, int x, int y, int size) {
     bottleName = name;
@@ -18,6 +20,10 @@ class Bottle {
     return selected;
   };
   
+  boolean isIncluded() {
+    return included;
+  }
+  
   boolean isHere(int mx, int my) {
     if (abs(mx - locationX) < 100 && abs(my - locationY) < 100) {
       return true;
@@ -29,6 +35,10 @@ class Bottle {
   void toggleSelect() {
     this.selected = this.selected ? false : true;
   }
+  
+    void toggleIncluded() {
+    this.included = this.included ? false : true;
+  }
     
   
   void drawThis(int counter) {
@@ -37,17 +47,23 @@ class Bottle {
     translate(locationX - radius, locationY - radius);
     rotate(radians(-deg));
     imageMode(CENTER);
-    image(sweep, 0, 0, 1.5 * radius, 1.5 * radius);
+    if (this.isSelected()) {
+      image(redSweep, 0, 0, 1.5 * radius, 1.5 * radius);
+    } else {
+      image(sweep, 0, 0, 1.5 * radius, 1.5 * radius);
+    }
     fill(color(0,0,0));
+    stroke(0);
     ellipse(0, 0, 50, 50);
     strokeWeight(8);
     noFill();
     ellipse(0, 0, radius, radius);
-    if (this.isSelected()) {
-      fill(color(255, 0, 0));
-      ellipse(0, 0, 20, 20);
-    }
     popMatrix();
+    if (this.isIncluded()) {
+      stroke(0, 255, 0);
+      strokeWeight(5);
+      line(this.locationX, this.locationY, width/2, 30);
+    }
   }
   
   String toString() {

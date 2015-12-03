@@ -57,6 +57,7 @@ void mouseClicked() {
   for (Bottle bottle : bottles) {
     if (bottle.isHere(mouseX, mouseY)) {
       bottle.toggleSelect();
+      bottle.toggleIncluded();
       println(bottle);
       selected = true;
     }
