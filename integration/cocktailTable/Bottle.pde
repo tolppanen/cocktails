@@ -7,6 +7,7 @@ class Bottle {
   boolean selected = false;
  boolean included = false; // If it's included in the recipe at all
   PImage sweep = loadImage("sweep2.png");
+  PImage redSweep = loadImage("sweep2red.png");
   
   Bottle(Ingredient name, int x, int y, int size) {
     bottleName = name;
@@ -39,23 +40,29 @@ class Bottle {
     this.included = this.included ? false : true;
   }
   
-  void drawThis(int counter) {
+ void drawThis(int counter) {
     float deg = 3.0 * counter;
     pushMatrix();
     translate(locationX - radius, locationY - radius);
     rotate(radians(-deg));
     imageMode(CENTER);
-    image(sweep, 0, 0, 1.5 * radius, 1.5 * radius);
+    if (this.isSelected()) {
+      image(redSweep, 0, 0, 1.5 * radius, 1.5 * radius);
+    } else {
+      image(sweep, 0, 0, 1.5 * radius, 1.5 * radius);
+    }
     fill(color(0,0,0));
+    stroke(0);
     ellipse(0, 0, 50, 50);
     strokeWeight(8);
     noFill();
     ellipse(0, 0, radius, radius);
-    if (this.isSelected()) {
-      fill(color(255, 0, 0));
-      ellipse(0, 0, 20, 20);
-    }
     popMatrix();
+    if (this.isIncluded()) {
+      stroke(0, 255, 0);
+      strokeWeight(5);
+      line(this.locationX, this.locationY, width/2, 30);
+    }
   }
   
   String toString() {
