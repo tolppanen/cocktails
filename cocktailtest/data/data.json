@@ -1,0 +1,33 @@
+[
+  [
+    { "name": "Gin Tonic"},
+    { "ingredient": "Gin", "amount": 4.0 },
+    { "ingredient": "Tonic Water", "amount": 12.0 }
+  ],
+  [
+    { "name": "Manhattan"},
+    { "ingredient": "Rye Whiskey", "amount": 4.0 },
+    { "ingredient": "Vermouth", "amount": 1.5 },
+    { "ingredient": "Angostura Bitters", "amount": 0.5 }
+  ],
+    [
+    { "name": "Jallukola"},
+    { "ingredient": "Jaloviina", "amount": 4.0 },
+    { "ingredient": "Cola", "amount": 16.0}
+  ],
+    [
+    { "name": "Mimosa"},
+    { "ingredient": "Champagne", "amount": 10.0 },
+    { "ingredient": "Orange Juice", "amount": 10.0}
+  ],
+    [
+    { "name": "Tiitu"},
+    { "ingredient": "Gin", "amount": 4.0 },
+    { "ingredient": "Orange Juice", "amount": 12.0}
+  ],
+    [
+    { "name": "Jallu-Ginger Ale"},
+    { "ingredient": "Jaloviina", "amount": 4.0 },
+    { "ingredient": "Ginger Ale", "amount": 16.0}
+  ]
+]
