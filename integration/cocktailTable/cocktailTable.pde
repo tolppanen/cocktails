@@ -11,6 +11,7 @@ int counter = 0;
 ArrayList<Bottle> bottles;
 ArrayList<Cocktail> recipes;
 ArrayList<Ingredient> ingredients;
+Cocktail activeRecipe;
 
 
 void setup() {
@@ -34,6 +35,7 @@ void testData() {
   bottles = new ArrayList<Bottle>();
   recipes = new ArrayList<Cocktail>();
   ingredients = new ArrayList<Ingredient>();
+  // Go through the data-file and add recipes and possible ingredients
   for (int i = 0; i < json.size(); i++) {
     JSONArray values = json.getJSONArray(i);
     JSONObject item = values.getJSONObject(0);
@@ -44,12 +46,14 @@ void testData() {
       cocktailName.ingredients.put(getOrCreate(currentRecipe.getString("ingredient")), currentRecipe.getFloat("amount"));
     }    
   }
-  
+  //add some bottles on the table 
   bottles.add(new Bottle(ingredients.get(0), 90, 90, 50));
   bottles.add(new Bottle(ingredients.get(1), 600, 600, 80));
   bottles.add(new Bottle(ingredients.get(2), 180, 500, 100));
   bottles.add(new Bottle(ingredients.get(3), 900, 300, 70));
   bottles.add(new Bottle(ingredients.get(4), 1000, 200, 80));
+  
+    changeRecipe(0);
 }
 
 void mouseClicked() {
@@ -78,6 +82,29 @@ Ingredient getOrCreate(String check) {
   }
 };
 
+void changeRecipe(int selector) {
+  activeRecipe = recipes.get(selector);
+  for (Bottle bottle : bottles) {
+    for (Map.Entry me : activeRecipe.ingredients.entrySet()) {
+          if(me.getKey().toString().equals(bottle.bottleName.toString())) {
+            bottle.included = true;
+            bottle.selected = true;
+      }
+    }
+  }
+}
+
+void clearRecipe() {
+  for (Bottle bottle : bottles) {
+    for (Map.Entry me : activeRecipe.ingredients.entrySet()) {
+          if(me.getKey().toString().equals(bottle.bottleName.toString())) {
+            bottle.included = false;
+            bottle.selected = false;
+          }
+        }
+  }
+}
+
 
 int bottleExists(String check) {
     int found = -1;
@@ -86,5 +113,15 @@ int bottleExists(String check) {
       if(ingredients.get(k).ingredientName.equals(check)) found = k;
     }
     return found;
+}
+
+void keyPressed() {
+  if (key == CODED) {
+    if (keyCode == UP) {
+      clearRecipe();
+      changeRecipe(int(random(3)));
+      println("jfdnlkdnfml");
+    }
+  }
 }
   
