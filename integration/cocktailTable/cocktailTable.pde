@@ -30,7 +30,7 @@ void draw() {
   background(0, 0, 0);
   // Draw the bottles
   for (Bottle bottle : bottles) {
-    bottle.drawThis(counter);
+    bottle.drawThis(counter, weight);
   }
   // Draw menu
   drawMenu();

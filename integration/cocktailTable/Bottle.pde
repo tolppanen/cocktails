@@ -42,11 +42,9 @@ class Bottle {
     this.included = this.included ? false : true;
   }
 
-  void drawThis(int counter) {
+  void drawThis(int counter, int poured) {
     if (this.isIncluded()) {
-      stroke(96, 255, 75);
-      strokeWeight(4);
-      line(this.locationX, this.locationY, width/2, height - 30);
+      drawLine(poured/100.0);
     }
     float deg = 3.0 * counter;
     pushMatrix();
@@ -73,7 +71,22 @@ class Bottle {
     ellipse(0, 0, radius, radius);
     popMatrix();
   }
-
+  
+  void drawLine(float percentage) {
+    stroke(96, 255, 75);
+    strokeWeight(4);
+    line(this.locationX, this.locationY, width/2, height - 30);
+    if (this.isSelected()) {
+      int deltaX = ((width/2) - this.locationX);
+      int deltaY = (height - 30 - this.locationY);
+      float endX = this.locationX + (percentage*deltaX);
+      float endY = this.locationY + (percentage*deltaY);
+      println("ThisX: " + this.locationX + "; thisY: " + this.locationY);
+      println("Weight: " + percentage + "; X: " + endX + "; Y: " + endY);
+      stroke(255, 0, 00);
+      line(this.locationX, this.locationY, endX, endY);
+     }  
+  }
   String toString() {
     return this.bottleName.toString();
   };
