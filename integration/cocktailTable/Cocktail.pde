@@ -1,6 +1,8 @@
 class Cocktail {
   String cocktailName;
-  HashMap<Ingredient, Float> ingredients;  
+  //HashMap<Ingredient, Float> ingredients;
+  ArrayList<Ingredient> ingredientList;
+  ArrayList<Float> amountList;
   
  /**
   *  This class represents cocktail-recipes, each cocktail has a NAME
@@ -10,7 +12,9 @@ class Cocktail {
   
   Cocktail(String name){
     cocktailName = name;
-    ingredients = new HashMap<Ingredient, Float>();
+    //ingredients = new HashMap<Ingredient, Float>();
+    ingredientList = new ArrayList<Ingredient>();
+    amountList = new ArrayList<Float>();
   }
   
   
@@ -20,32 +24,23 @@ class Cocktail {
   *  gintonic.getIngredientNo(0);
   *  TODO: what should this return instead of a string description?
   */
-  String getIngredientNo(Integer number) {
-    if(number < ingredients.keySet().size() && number >= 0) {
-      Ingredient[] newarray = ingredients.keySet().toArray(new Ingredient[0]);
-      Ingredient currentIngredient = newarray[number];
-      Integer amount = round(ingredients.get(currentIngredient));
-      return "Pour " + amount + "cl of " + currentIngredient.toString();
-    }
-    else return "No such ingredient";
+  Ingredient getIngredientNo(Integer number) {
+    if (number >= 0 && number < this.ingredientList.size()) return this.ingredientList.get(number);
+    else return new Ingredient("Completed!");
   };
   
-  /*  A method for getting the amount of a specific ingredient
-  *   Takes an Ingredient object and return the amount in float (centileters)
-  */
-  Float getAmountOf(Ingredient liquor) {
-    return this.ingredients.get(liquor);
+  Float getAmountNo(Integer number) {
+    return this.amountList.get(number);
   }
-  
   
   /*
   * Returns the total volume of this drink
   */
   Float getTotalVolume() {
-    Float sum = 0.0;    
-    for (Map.Entry me : ingredients.entrySet()) {
-        sum += (Float) me.getValue();
-    };
+    Float sum = 0.0;
+    for(Float number : amountList) {
+      sum += number;
+    }
     return sum;
   };
   
@@ -55,8 +50,8 @@ class Cocktail {
    
    ArrayList<String> getAllPhases(){
      ArrayList<String> listResult = new ArrayList<String>();
-     for(int i = 0; i < ingredients.keySet().size(); i ++) {
-       listResult.add(this.getIngredientNo(i));
+     for(int i = 0; i < ingredientList.size(); i ++) {
+       listResult.add(ingredientList.get(i).toString() + ", " + amountList.get(i).toString());
      }
      return listResult;
    }

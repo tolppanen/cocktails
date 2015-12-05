@@ -12,6 +12,7 @@ ArrayList<Bottle> bottles;
 ArrayList<Cocktail> recipes;
 ArrayList<Ingredient> ingredients;
 Cocktail activeRecipe;
+int currentStep, numberOfSteps;
 
 
 void setup() {
@@ -43,7 +44,9 @@ void testData() {
     recipes.add(cocktailName);
     for(int t = 1; t<values.size(); t++) {
       JSONObject currentRecipe = values.getJSONObject(t);
-      cocktailName.ingredients.put(getOrCreate(currentRecipe.getString("ingredient")), currentRecipe.getFloat("amount"));
+      cocktailName.ingredientList.add(getOrCreate(currentRecipe.getString("ingredient")));
+      cocktailName.amountList.add(currentRecipe.getFloat("amount"));
+      //cocktailName.ingredients.put(getOrCreate(currentRecipe.getString("ingredient")), currentRecipe.getFloat("amount"));
     }    
   }
   //add some bottles on the table 
@@ -58,14 +61,14 @@ void testData() {
 
 void mouseClicked() {
   boolean selected = false;
-  for (Bottle bottle : bottles) {
-    if (bottle.isHere(mouseX, mouseY)) {
-      bottle.toggleSelect();
-      bottle.toggleIncluded();
-      println(bottle);
-      selected = true;
-    }
-  }
+//  for (Bottle bottle : bottles) {
+//    if (bottle.isHere(mouseX, mouseY)) {
+//      bottle.toggleSelect();
+//      bottle.toggleIncluded();
+//      println(bottle);
+//      selected = true;
+//    }
+//  }
    if(!selected) {
    int random = int(random(ingredients.size()));
    bottles.add(new Bottle(ingredients.get(random), mouseX + 80, mouseY + 80, 80));
@@ -84,32 +87,40 @@ Ingredient getOrCreate(String check) {
 
 void changeRecipe(int selector) {
   activeRecipe = recipes.get(selector);
+  numberOfSteps = activeRecipe.ingredientList.size();
+  currentStep = 0;
+  drawCurrentPhase();
+}
+
+  void drawCurrentPhase() {  
+  String currentIngredient = activeRecipe.getIngredientNo(currentStep).toString();
+  boolean found = false;
   for (Bottle bottle : bottles) {
-    for (Map.Entry me : activeRecipe.ingredients.entrySet()) {
-          if(me.getKey().toString().equals(bottle.bottleName.toString())) {
-            bottle.included = true;
-            bottle.selected = true;
-      }
+    if(bottle.bottleName.toString().equals(currentIngredient.toString()) && !found) {
+          bottle.included = true;
+          bottle.selected = true;
+          found = true;
     }
+   }
+   println(currentIngredient);
   }
+
+
+void nextStep() {
+  currentStep += 1;  
 }
 
 void clearRecipe() {
-  for (Bottle bottle : bottles) {
-    for (Map.Entry me : activeRecipe.ingredients.entrySet()) {
-          if(me.getKey().toString().equals(bottle.bottleName.toString())) {
-            bottle.included = false;
-            bottle.selected = false;
-          }
+    for (Bottle bottle : bottles) {
+          bottle.included = false;
+          bottle.selected = false;
         }
-  }
 }
 
 
 int bottleExists(String check) {
     int found = -1;
     for(int k = 0; k < bottles.size(); k++){
-      println(ingredients.get(k).ingredientName);
       if(ingredients.get(k).ingredientName.equals(check)) found = k;
     }
     return found;
@@ -119,8 +130,14 @@ void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
       clearRecipe();
-      changeRecipe(int(random(3)));
-      println("jfdnlkdnfml");
+      int newIndex = int(random(recipes.size())-1);
+      changeRecipe(int(random(newIndex)));
+      println(activeRecipe);
+      println(activeRecipe.ingredientList);
+    }
+    if (keyCode == DOWN) {
+      nextStep();
+      drawCurrentPhase();
     }
   }
 }
