@@ -54,7 +54,6 @@ void draw() {
 
 
 void drawGlass() {
-  println(counter);
   pushMatrix();
   image(glass, widthX/2, heightY-80, 120, 120);
   noStroke();
@@ -90,12 +89,12 @@ void drawMenu() {
     stroke(green);
     strokeWeight(2);
     noFill();
-    ellipse((width - 240), ((height - i * 40) - 40), 30, 30);
+    ellipse((width - 240), ((height - i * 39) - 40), 28, 28);
     // Highlight the active recipe
     color thisColor = activeRecipe.equals(recipes.get(i)) ? red : green;
     fill(thisColor);
     textSize(18);
-    text(recipes.get(i).toString(), width - 200, (height - i * 40) - 30);
+    text(recipes.get(i).toString(), width - 205, (height - i * 40) - 30);
   }
 }
 
@@ -195,9 +194,10 @@ int bottleExists(String check) {
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
+      int index = recipes.indexOf(activeRecipe);
       clearRecipe();
-      int newIndex = int(random(recipes.size())-1);
-      changeRecipe(int(random(newIndex)));
+      int newIndex = (index == 0) ? recipes.size() - 1 : index - 1;
+      changeRecipe(newIndex);
       println(activeRecipe);
       println(activeRecipe.ingredientList);
     }
