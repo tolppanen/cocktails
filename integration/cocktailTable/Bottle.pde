@@ -8,6 +8,8 @@ class Bottle {
  boolean included = false; // If it's included in the recipe at all
   PImage sweep = loadImage("Images/sweep3.png");
   PImage redSweep = loadImage("Images/sweep3red.png");
+  PImage grid = loadImage("Images/pattern1green.png");
+  PImage gridRed = loadImage("Images/pattern1red.png");
   
   Bottle(Ingredient name, int x, int y, int size) {
     bottleName = name;
@@ -48,8 +50,12 @@ class Bottle {
     imageMode(CENTER);
     if (this.isSelected()) {
       image(redSweep, 0, 0, 1.5 * radius, 1.5 * radius);
+      tint(255, 127);
+      image(gridRed, 0, 0, 1.5 * radius, 1.5 * radius);
     } else {
       image(sweep, 0, 0, 1.5 * radius, 1.5 * radius);
+      tint(255, 127);
+      image(grid, 0, 0, 1.5 * radius, 1.5 * radius);
     }
     fill(color(0,0,0));
     stroke(0);
