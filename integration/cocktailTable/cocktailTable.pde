@@ -7,7 +7,7 @@ int heightY = 620;
 int widthX = 1280;
 
 int counter = 0;
-int weightPoured = 0; // Here goes the reading from the pressure sensor!
+int weight = 0; // Here goes the reading from the pressure sensor!
 
 ArrayList<Bottle> bottles;
 ArrayList<Cocktail> recipes;
@@ -169,6 +169,16 @@ void keyPressed() {
     if (keyCode == DOWN) {
       nextStep();
       drawCurrentPhase();
+    }
+        if (keyCode == LEFT) { // Simulate the pressure sensor
+    println(weight);
+      if (weight < 100) {
+        weight++;
+      } else {
+        weight = 0;
+        nextStep();
+        drawCurrentPhase();
+      }
     }
   }
 }
