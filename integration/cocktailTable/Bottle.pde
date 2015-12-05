@@ -64,8 +64,9 @@ class Bottle {
     noFill();
     ellipse(0, 0, radius, radius);
     popMatrix();
+    
     if (this.isIncluded()) {
-      stroke(0, 255, 0);
+      stroke(96, 255, 75);
       strokeWeight(5);
       line(this.locationX, this.locationY, width/2, height - 30);
     }
