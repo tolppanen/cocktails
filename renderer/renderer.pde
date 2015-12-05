@@ -3,7 +3,7 @@
 int heightY = 720;
 int widthX = 1280;
 
-int counter = 0;
+int counter = 0; // Counter used for rotating image to get the sweep effect
 
 ArrayList<Bottle> bottles = new ArrayList<Bottle>();
 
@@ -15,6 +15,9 @@ void setup() {
 }
 
 void draw() {
+  
+  // Clear all
+  background(0, 0, 0);
   
   //Draw the mixing glass
   fill(color(0, 255, 0));

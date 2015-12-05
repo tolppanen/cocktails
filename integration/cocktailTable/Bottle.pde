@@ -43,7 +43,7 @@ class Bottle {
  void drawThis(int counter) {
     float deg = 3.0 * counter;
     pushMatrix();
-    translate(locationX - radius, locationY - radius);
+    translate(locationX, locationY);
     rotate(radians(-deg));
     imageMode(CENTER);
     if (this.isSelected()) {

@@ -6,8 +6,8 @@ class Bottle {
   int radius;
   boolean selected = false; // If this is the ingredient to be used
   boolean included = false; // If it's included in the recipe at all
-  PImage sweep = loadImage("sweep2.png");
-  PImage redSweep = loadImage("sweep2red.png");
+  PImage sweep = loadImage("sweep2.png"); // Normal image
+  PImage redSweep = loadImage("sweep2red.png"); // If this is the next one to be poured
   
   Bottle(String name, int x, int y, int size) {
     bottleName = name;
@@ -25,7 +25,7 @@ class Bottle {
   }
   
   boolean isHere(int mx, int my) {
-    if (abs(mx - locationX) < 100 && abs(my - locationY) < 100) {
+    if (abs(mx - locationX) < 25 && abs(my - locationY) < 25) {
       return true;
     } else {
       return false;
@@ -44,7 +44,7 @@ class Bottle {
   void drawThis(int counter) {
     float deg = 3.0 * counter;
     pushMatrix();
-    translate(locationX - radius, locationY - radius);
+    translate(locationX, locationY);
     rotate(radians(-deg));
     imageMode(CENTER);
     if (this.isSelected()) {
