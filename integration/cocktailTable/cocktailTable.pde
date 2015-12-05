@@ -10,6 +10,9 @@ int counter = 0;
 int everyOther = 0;
 int weight = 0; // Here goes the reading from the pressure sensor!
 
+color green = color(96, 255, 75);
+color red = color(116, 0, 0);
+
 ArrayList<Bottle> bottles;
 ArrayList<Cocktail> recipes;
 ArrayList<Ingredient> ingredients;
@@ -51,6 +54,7 @@ void draw() {
 
 
 void drawGlass() {
+  println(counter);
   pushMatrix();
   image(glass, widthX/2, heightY-80, 120, 120);
   noStroke();
@@ -59,7 +63,7 @@ void drawGlass() {
     ellipse(widthX/2, heightY-80, counter, counter);
 
     if (counter >= 30) {
-      fill(96, 255, 75);
+      fill(green);
       ellipse(widthX/2, heightY-80, counter-30, counter-30);
     }
     /**
@@ -73,7 +77,7 @@ void drawGlass() {
   if (everyOther == 1) {
     fill(0);
     ellipse(widthX/2, heightY-80, (120 - (counter - 120)) - 120, (120 - (counter - 120)) - 120);
-    fill(96, 255, 75);
+    fill(green);
     ellipse(widthX/2, heightY-80, max(0, (90 - (counter - 30) - 30)), max(0, (90 - (counter - 30)) - 30));
     //fill(0);
     //ellipse(widthX/2, heightY-80, counter - (counter-60), counter - (counter-60));
@@ -83,20 +87,16 @@ void drawGlass() {
 
 void drawMenu() {
   for (int i = 0; i < recipes.size (); i++) {
-    stroke(color(96, 255, 75));
+    stroke(green);
     strokeWeight(2);
     noFill();
-    rect((width - 240), ((height - i * 40) - 60), 220, 40);
+    ellipse((width - 240), ((height - i * 40) - 40), 30, 30);
     // Highlight the active recipe
-    color thisColor = activeRecipe.equals(recipes.get(i)) ? color(255, 0, 0) : color(0, 255, 0);
+    color thisColor = activeRecipe.equals(recipes.get(i)) ? red : green;
     fill(thisColor);
     textSize(18);
     text(recipes.get(i).toString(), width - 200, (height - i * 40) - 30);
   }
-  // Draw a line to signify where the optical marker for choosing a cocktail should be placed
-  stroke(color(0, 255, 0));
-  strokeWeight(3);
-  line(width - 210, (height - recipes.size() * 40) - 20, width - 210, height - 20);
 }
 
 // The following pieces of code are here for testing: 

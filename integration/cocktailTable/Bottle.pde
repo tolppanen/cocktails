@@ -67,15 +67,15 @@ class Bottle {
   }
 
   void drawLine(float percentage) {
-    stroke(96, 255, 75);
+    stroke(green);
     strokeWeight(4);
-    line(this.locationX, this.locationY, width/2, height - 30);
+    line(this.locationX, this.locationY, width/2, height - 80);
     if (this.isSelected()) {
       int deltaX = ((width/2) - this.locationX);
-      int deltaY = (height - 30 - this.locationY);
+      int deltaY = (height - 80 - this.locationY);
       float endX = this.locationX + (percentage*deltaX);
       float endY = this.locationY + (percentage*deltaY);
-      stroke(255, 0, 00);
+      stroke(red);
       line(this.locationX, this.locationY, endX, endY);
     }
   }
