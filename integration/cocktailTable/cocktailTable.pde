@@ -7,6 +7,7 @@ int heightY = 620;
 int widthX = 1280;
 
 int counter = 0;
+int weightPoured = 0; // Here goes the reading from the pressure sensor!
 
 ArrayList<Bottle> bottles;
 ArrayList<Cocktail> recipes;
@@ -28,11 +29,8 @@ void draw() {
   for (Bottle bottle : bottles) {
     bottle.drawThis(counter);
   }
-  
   // Draw menu
-  
   drawMenu();
-  
   // Add to counter, for spinning the images
   counter = (counter < 120) ? counter + 1 : 0;
 }
@@ -43,11 +41,13 @@ void drawMenu() {
     strokeWeight(3);
     noFill();
     rect((width - 210), ((height - i * 40) - 40), 210, 40);
-    fill(0, 255, 0);
+    // Highlight the active recipe
+    color thisColor = activeRecipe.equals(recipes.get(i)) ? color(255, 0, 0) : color(0, 255, 0);
+    fill(thisColor);
     textSize(20);
     text(recipes.get(i).toString(), width - 165, (height - i * 40) - 10); 
   }
-  
+  // Draw a line to signify where the optical marker for choosing a cocktail should be placed
   stroke(color(0, 255, 0));
   strokeWeight(3);
   line(width - 175, height - recipes.size() * 40, width - 175, height);
@@ -97,7 +97,7 @@ void mouseClicked() {
 //  }
    if(!selected) {
    int random = int(random(ingredients.size()));
-   bottles.add(new Bottle(ingredients.get(random), mouseX + 80, mouseY + 80, 80));
+   bottles.add(new Bottle(ingredients.get(random), mouseX, mouseY, 80));
     }
 }
   
