@@ -6,8 +6,8 @@ class Bottle {
   int radius;
   boolean selected = false;
  boolean included = false; // If it's included in the recipe at all
-  PImage sweep = loadImage("sweep2.png");
-  PImage redSweep = loadImage("sweep2red.png");
+  PImage sweep = loadImage("Images/sweep3.png");
+  PImage redSweep = loadImage("Images/sweep3red.png");
   
   Bottle(Ingredient name, int x, int y, int size) {
     bottleName = name;
