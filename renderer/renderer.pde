@@ -35,7 +35,7 @@ void draw() {
 
 void testData() {
   bottles.add(new Bottle("Vodka", 90, 90, 50));
-  bottles.add(new Bottle("Rum", 600, 600, 80));
+  bottles.add(new Bottle("Rum", 600, 200, 80));
   bottles.add(new Bottle("Cola", 180, 500, 100));
   bottles.add(new Bottle("Sprite", 900, 300, 70));
   bottles.add(new Bottle("Something", 1000, 200, 80));

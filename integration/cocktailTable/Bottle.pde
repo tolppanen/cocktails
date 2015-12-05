@@ -61,7 +61,7 @@ class Bottle {
     if (this.isIncluded()) {
       stroke(0, 255, 0);
       strokeWeight(5);
-      line(this.locationX, this.locationY, width/2, 30);
+      line(this.locationX, this.locationY, width/2, height - 30);
     }
   }
   
