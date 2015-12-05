@@ -51,7 +51,6 @@ void draw() {
 
 
 void drawGlass() {
-  println(counter);
   pushMatrix();
   image(glass, widthX/2, heightY-80, 120, 120);
   noStroke();

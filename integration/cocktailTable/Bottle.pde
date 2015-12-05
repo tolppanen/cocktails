@@ -41,6 +41,7 @@ class Bottle {
     float deg = 3.0 * counter;
     pushMatrix();
     translate(locationX, locationY);
+    tint(255, 127);
     noStroke();
     fill(0, 0, 0);
     ellipse(0, 0, radius*1.5, radius*1.5);
@@ -48,19 +49,20 @@ class Bottle {
     imageMode(CENTER);
     if (this.isSelected()) {
       image(redSweep, 0, 0, 1.5 * radius, 1.5 * radius);
-      tint(255, 127);
       image(gridRed, 0, 0, 1.5 * radius, 1.5 * radius);
     } else {
       image(sweep, 0, 0, 1.5 * radius, 1.5 * radius);
       tint(255, 127);
       image(grid, 0, 0, 1.5 * radius, 1.5 * radius);
     }
+    
     fill(color(0, 0, 0));
     stroke(0);
     ellipse(0, 0, 50, 50);
     strokeWeight(8);
     noFill();
     ellipse(0, 0, radius, radius);
+    tint(255, 255);
     popMatrix();
   }
 
