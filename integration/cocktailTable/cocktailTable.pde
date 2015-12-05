@@ -7,7 +7,7 @@ int heightY = 620;
 int widthX = 1280;
 
 int counter = 0;
-int everyOther = 0;
+int everyFourth = 0;
 int weight = 0; // Here goes the reading from the pressure sensor!
 
 color green = color(96, 255, 75);
@@ -45,42 +45,55 @@ void draw() {
   drawGlass();
   // Add to counter, for spinning the images
   counter = (counter < 120) ? counter + 1 : 0;
-  if (counter == 120) {
-    if (everyOther == 0) {
-      everyOther = 1;
-    } else everyOther = 0;
+  if (counter >= 0 && counter < 30) {
+    everyFourth = 0;
+  }
+  if (counter >= 30 && counter < 60) {
+    everyFourth = 1;
+  } 
+  if (counter >= 60 && counter < 90) {
+    everyFourth = 2;
+  }
+  if (counter >= 90 && counter <= 120) {
+    everyFourth = 3;
   }
 }
 
-
 void drawGlass() {
   pushMatrix();
-  image(glass, widthX/2, heightY-80, 120, 120);
   noStroke();
-  if (everyOther == 0) {
-    fill(0);
-    ellipse(widthX/2, heightY-80, counter, counter);
+  fill(96, 255, 75); 
+  ellipse(widthX/2, heightY-80, 124, 124);     // background green glass
 
-    if (counter >= 30) {
-      fill(green);
-      ellipse(widthX/2, heightY-80, counter-30, counter-30);
-    }
-    /**
-     if (counter >= 60) {
-     fill(0);
-     ellipse(widthX/2, heightY-80, counter-60, counter-60);
-     }
-     */
+  if (everyFourth == 0) {
+    fill(0);
+    ellipse(widthX/2, heightY-80, min(120, counter*4), min(120, counter*4));  // black, 1st
   }
 
-  if (everyOther == 1) {
-    fill(0);
-    ellipse(widthX/2, heightY-80, (120 - (counter - 120)) - 120, (120 - (counter - 120)) - 120);
-    fill(green);
-    ellipse(widthX/2, heightY-80, max(0, (90 - (counter - 30) - 30)), max(0, (90 - (counter - 30)) - 30));
-    //fill(0);
-    //ellipse(widthX/2, heightY-80, counter - (counter-60), counter - (counter-60));
+  if (everyFourth == 1) {
+    noStroke();
+    fill(0); 
+    ellipse(widthX/2, heightY-80, 120, 120);
+
+    fill(96, 255, 75);
+    ellipse(widthX/2, heightY-80, min(120, (counter - 30) * 4), min(120, (counter - 30) * 4));    // green, 2nd
   }
+
+  if (everyFourth == 2) {
+    noStroke();
+    fill(0);
+    ellipse(widthX/2, heightY-80, min(120, (counter - 60) * 4), min(120, (counter - 60) * 4));    // black, 3rd
+  }
+
+  if (everyFourth == 3) {
+    noStroke();
+    fill(0); 
+    ellipse(widthX/2, heightY-80, 120, 120);
+
+    fill(96, 255, 75); 
+    ellipse(widthX/2, heightY-80, min(120, (counter - 90) * 4), min(120, (counter - 90) * 4));  // green, 4th
+  }
+
   popMatrix();
 }
 
