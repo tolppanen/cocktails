@@ -133,6 +133,9 @@ void drawCurrentPhase() {
       found = true;
     }
   }
+  if (currentIngredient.equals("Completed!")) {
+    clearRecipe();
+  }
   println(currentIngredient);
 }
 
