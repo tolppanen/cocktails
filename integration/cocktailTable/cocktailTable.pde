@@ -43,17 +43,17 @@ void drawMenu() {
     stroke(color(96, 255, 75));
     strokeWeight(2);
     noFill();
-    rect((width - 240), ((height - i * 40) - 40), 240, 40);
+    rect((width - 240), ((height - i * 40) - 60), 220, 40);
     // Highlight the active recipe
     color thisColor = activeRecipe.equals(recipes.get(i)) ? color(255, 0, 0) : color(0, 255, 0);
     fill(thisColor);
     textSize(18);
-    text(recipes.get(i).toString(), width - 165, (height - i * 40) - 10);
+    text(recipes.get(i).toString(), width - 200, (height - i * 40) - 30);
   }
   // Draw a line to signify where the optical marker for choosing a cocktail should be placed
   stroke(color(0, 255, 0));
   strokeWeight(3);
-  line(width - 175, height - recipes.size() * 40, width - 175, height);
+  line(width - 210, (height - recipes.size() * 40) - 20, width - 210, height - 20);
 }
 
 // The following pieces of code are here for testing: 
