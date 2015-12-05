@@ -88,19 +88,8 @@ void testData() {
 }
 
 void mouseClicked() {
-  boolean selected = false;
-  //  for (Bottle bottle : bottles) {
-  //    if (bottle.isHere(mouseX, mouseY)) {
-  //      bottle.toggleSelect();
-  //      bottle.toggleIncluded();
-  //      println(bottle);
-  //      selected = true;
-  //    }
-  //  }
-  if (!selected) {
-    int random = int(random(ingredients.size()));
-    bottles.add(new Bottle(ingredients.get(random), mouseX, mouseY, 80));
-  }
+  int random = int(random(ingredients.size()));
+  bottles.add(new Bottle(ingredients.get(random), mouseX, mouseY, 80));
 }
 
 Ingredient getOrCreate(String check) {

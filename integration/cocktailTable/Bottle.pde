@@ -4,7 +4,7 @@ class Bottle {
   int locationX;
   int locationY;
   int radius;
-  boolean selected = false;
+  boolean selected = false; // If it's the one to be poured now
   boolean included = false; // If it's included in the recipe at all
   PImage sweep = loadImage("Images/sweep3.png");
   PImage redSweep = loadImage("Images/sweep3red.png");
@@ -34,14 +34,6 @@ class Bottle {
     }
   }
 
-  void toggleSelect() {
-    this.selected = this.selected ? false : true;
-  }
-
-  void toggleIncluded() {
-    this.included = this.included ? false : true;
-  }
-
   void drawThis(int counter, int poured) {
     if (this.isIncluded()) {
       drawLine(poured/100.0);
@@ -52,7 +44,7 @@ class Bottle {
     noStroke();
     fill(0, 0, 0);
     ellipse(0, 0, radius*1.5, radius*1.5);
-      rotate(radians(-deg));
+    rotate(radians(-deg));
     imageMode(CENTER);
     if (this.isSelected()) {
       image(redSweep, 0, 0, 1.5 * radius, 1.5 * radius);
@@ -71,7 +63,7 @@ class Bottle {
     ellipse(0, 0, radius, radius);
     popMatrix();
   }
-  
+
   void drawLine(float percentage) {
     stroke(96, 255, 75);
     strokeWeight(4);
@@ -81,11 +73,9 @@ class Bottle {
       int deltaY = (height - 30 - this.locationY);
       float endX = this.locationX + (percentage*deltaX);
       float endY = this.locationY + (percentage*deltaY);
-      println("ThisX: " + this.locationX + "; thisY: " + this.locationY);
-      println("Weight: " + percentage + "; X: " + endX + "; Y: " + endY);
       stroke(255, 0, 00);
       line(this.locationX, this.locationY, endX, endY);
-     }  
+    }
   }
   String toString() {
     return this.bottleName.toString();
