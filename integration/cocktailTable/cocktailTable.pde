@@ -7,6 +7,7 @@ int heightY = 620;
 int widthX = 1280;
 
 int counter = 0;
+int everyOther = 0;
 int weight = 0; // Here goes the reading from the pressure sensor!
 
 ArrayList<Bottle> bottles;
@@ -15,10 +16,14 @@ ArrayList<Ingredient> ingredients;
 Cocktail activeRecipe;
 int currentStep, numberOfSteps;
 
+PImage glass;
+
 
 void setup() {
   size(widthX, heightY);
   background(0, 0, 0);
+  tint(255, 255);
+  glass = loadImage("Images/glass1.png");
   testData();
   PFont myFont;
   myFont = createFont("Consolas", 24);
@@ -34,8 +39,47 @@ void draw() {
   }
   // Draw menu
   drawMenu();
+  drawGlass();
   // Add to counter, for spinning the images
   counter = (counter < 120) ? counter + 1 : 0;
+  if (counter == 120) {
+    if (everyOther == 0) {
+      everyOther = 1;
+    } else everyOther = 0;
+  }
+}
+
+
+void drawGlass() {
+  println(counter);
+  pushMatrix();
+  image(glass, widthX/2, heightY-80, 120, 120);
+  noStroke();
+  if (everyOther == 0) {
+    fill(0);
+    ellipse(widthX/2, heightY-80, counter, counter);
+
+    if (counter >= 30) {
+      fill(96, 255, 75);
+      ellipse(widthX/2, heightY-80, counter-30, counter-30);
+    }
+    /**
+     if (counter >= 60) {
+     fill(0);
+     ellipse(widthX/2, heightY-80, counter-60, counter-60);
+     }
+     */
+  }
+
+  if (everyOther == 1) {
+    fill(0);
+    ellipse(widthX/2, heightY-80, (120 - (counter - 120)) - 120, (120 - (counter - 120)) - 120);
+    fill(96, 255, 75);
+    ellipse(widthX/2, heightY-80, max(0, (90 - (counter - 30) - 30)), max(0, (90 - (counter - 30)) - 30));
+    //fill(0);
+    //ellipse(widthX/2, heightY-80, counter - (counter-60), counter - (counter-60));
+  }
+  popMatrix();
 }
 
 void drawMenu() {
@@ -162,8 +206,8 @@ void keyPressed() {
       nextStep();
       drawCurrentPhase();
     }
-        if (keyCode == LEFT) { // Simulate the pressure sensor
-    println(weight);
+    if (keyCode == LEFT) { // Simulate the pressure sensor
+      println(weight);
       if (weight < 100) {
         weight++;
       } else {
