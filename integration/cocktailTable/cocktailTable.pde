@@ -20,6 +20,9 @@ void setup() {
   size(widthX, heightY);
   background(0, 0, 0);
   testData();
+  PFont myFont;
+  myFont = createFont("Consolas", 24);
+  textFont(myFont);
 }
 
 void draw() {
@@ -37,14 +40,14 @@ void draw() {
 
 void drawMenu() {
   for (int i = 0; i < recipes.size (); i++) {
-    stroke(color(0, 255, 0));
-    strokeWeight(3);
+    stroke(color(96, 255, 75));
+    strokeWeight(2);
     noFill();
-    rect((width - 210), ((height - i * 40) - 40), 210, 40);
+    rect((width - 240), ((height - i * 40) - 40), 240, 40);
     // Highlight the active recipe
     color thisColor = activeRecipe.equals(recipes.get(i)) ? color(255, 0, 0) : color(0, 255, 0);
     fill(thisColor);
-    textSize(20);
+    textSize(18);
     text(recipes.get(i).toString(), width - 165, (height - i * 40) - 10);
   }
   // Draw a line to signify where the optical marker for choosing a cocktail should be placed

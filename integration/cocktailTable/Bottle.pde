@@ -45,7 +45,7 @@ class Bottle {
   void drawThis(int counter) {
     if (this.isIncluded()) {
       stroke(96, 255, 75);
-      strokeWeight(5);
+      strokeWeight(4);
       line(this.locationX, this.locationY, width/2, height - 30);
     }
     float deg = 3.0 * counter;
