@@ -25,8 +25,8 @@ PImage glass;
 void setup() {
   // ARDUINO STUFF
 
-  println(Arduino.list());
-  arduino = new Arduino(this, Arduino.list()[2], 57600);
+  /*println(Arduino.list());
+  arduino = new Arduino(this, Arduino.list()[2], 57600);*/
 
   //
 
