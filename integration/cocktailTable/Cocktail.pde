@@ -45,7 +45,7 @@ class Cocktail {
   };
   
    String toString() {
-     return this.cocktailName;
+     return this.cocktailName.toUpperCase();
    }
    
    ArrayList<String> getAllPhases(){

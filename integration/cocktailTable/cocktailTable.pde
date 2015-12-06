@@ -24,20 +24,15 @@ PImage glass;
 
 void setup() {
   // ARDUINO STUFF
-  
-  //println(Arduino.list());
-  //arduino = new Arduino(this, Arduino.list()[0], 57600);
-  
- // String portName = Serial.list()[0];
-  //port = new Serial(this, portName, 9600);
-  
+
+  println(Arduino.list());
+  arduino = new Arduino(this, Arduino.list()[2], 57600);
+
   //
-  
-  
+
+
   size(1280, 620);
   background(0, 0, 0);
-  tint(255, 255);
-  glass = loadImage("Images/glass1.png");
   testData();
   PFont myFont;
   myFont = createFont("Consolas", 24);
@@ -47,13 +42,6 @@ void setup() {
 void draw() {
   // Clear background
   background(0, 0, 0);
-  
-  // Draw arduinostuff (testing)
-  /*fill(green);
-  textSize(18);
-  text(arduino.analogRead(0), width/2, height/2);*/
-  
-  
   // Draw the bottles
   for (Bottle bottle : bottles) {
     bottle.drawThis(counter, weight);
@@ -78,45 +66,45 @@ void draw() {
 }
 
 void drawGlass() {
-  pushMatrix();
   noStroke();
-  
+
   fill(0);
   ellipse(widthX/2, heightY-80, 124, 124);
-  
+
   fill(96, 255, 75, 127); 
   ellipse(widthX/2, heightY-80, 124, 124);     // background green glass
 
-  if (everyFourth == 0) {
-    fill(0, 0, 0);
-    ellipse(widthX/2, heightY-80, min(120, counter*4), min(120, counter*4));  // black, 1st
+  if (weight == 0) {            // only do this if glass is not set on table
+
+    if (everyFourth == 0) {
+      fill(0, 0, 0);
+      ellipse(widthX/2, heightY-80, min(120, counter*4), min(120, counter*4));  // black, 1st
+    }
+
+    if (everyFourth == 1) {
+      noStroke();
+      fill(0, 0, 0); 
+      ellipse(widthX/2, heightY-80, 120, 120);
+
+      fill(96, 255, 75, 127);
+      ellipse(widthX/2, heightY-80, min(120, (counter - 30) * 4), min(120, (counter - 30) * 4));    // green, 2nd
+    }
+
+    if (everyFourth == 2) {
+      noStroke();
+      fill(0, 0, 0);
+      ellipse(widthX/2, heightY-80, min(120, (counter - 60) * 4), min(120, (counter - 60) * 4));    // black, 3rd
+    }
+
+    if (everyFourth == 3) {
+      noStroke();
+      fill(0, 0, 0); 
+      ellipse(widthX/2, heightY-80, 120, 120);
+
+      fill(96, 255, 75, 127); 
+      ellipse(widthX/2, heightY-80, min(120, (counter - 90) * 4), min(120, (counter - 90) * 4));  // green, 4th
+    }
   }
-
-  if (everyFourth == 1) {
-    noStroke();
-    fill(0, 0, 0); 
-    ellipse(widthX/2, heightY-80, 120, 120);
-
-    fill(96, 255, 75, 127);
-    ellipse(widthX/2, heightY-80, min(120, (counter - 30) * 4), min(120, (counter - 30) * 4));    // green, 2nd
-  }
-
-  if (everyFourth == 2) {
-    noStroke();
-    fill(0, 0, 0);
-    ellipse(widthX/2, heightY-80, min(120, (counter - 60) * 4), min(120, (counter - 60) * 4));    // black, 3rd
-  }
-
-  if (everyFourth == 3) {
-    noStroke();
-    fill(0, 0, 0); 
-    ellipse(widthX/2, heightY-80, 120, 120);
-
-    fill(96, 255, 75, 127); 
-    ellipse(widthX/2, heightY-80, min(120, (counter - 90) * 4), min(120, (counter - 90) * 4));  // green, 4th
-  }
-
-  popMatrix();
 }
 
 void drawMenu() {
@@ -252,3 +240,4 @@ void keyPressed() {
     }
   }
 }
+
