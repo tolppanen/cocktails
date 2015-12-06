@@ -62,35 +62,39 @@ void draw() {
 void drawGlass() {
   pushMatrix();
   noStroke();
-  fill(96, 255, 75); 
+  
+  fill(0);
+  ellipse(widthX/2, heightY-80, 124, 124);
+  
+  fill(96, 255, 75, 127); 
   ellipse(widthX/2, heightY-80, 124, 124);     // background green glass
 
   if (everyFourth == 0) {
-    fill(0);
+    fill(0, 0, 0);
     ellipse(widthX/2, heightY-80, min(120, counter*4), min(120, counter*4));  // black, 1st
   }
 
   if (everyFourth == 1) {
     noStroke();
-    fill(0); 
+    fill(0, 0, 0); 
     ellipse(widthX/2, heightY-80, 120, 120);
 
-    fill(96, 255, 75);
+    fill(96, 255, 75, 127);
     ellipse(widthX/2, heightY-80, min(120, (counter - 30) * 4), min(120, (counter - 30) * 4));    // green, 2nd
   }
 
   if (everyFourth == 2) {
     noStroke();
-    fill(0);
+    fill(0, 0, 0);
     ellipse(widthX/2, heightY-80, min(120, (counter - 60) * 4), min(120, (counter - 60) * 4));    // black, 3rd
   }
 
   if (everyFourth == 3) {
     noStroke();
-    fill(0); 
+    fill(0, 0, 0); 
     ellipse(widthX/2, heightY-80, 120, 120);
 
-    fill(96, 255, 75); 
+    fill(96, 255, 75, 127); 
     ellipse(widthX/2, heightY-80, min(120, (counter - 90) * 4), min(120, (counter - 90) * 4));  // green, 4th
   }
 
