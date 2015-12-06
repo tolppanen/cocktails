@@ -23,7 +23,16 @@ PImage glass;
 
 
 void setup() {
-  size(widthX, heightY);
+  // ARDUINO STUFF
+  
+  println(Arduino.list());
+  arduino = new Arduino(this, Arduino.list()[2], 57600);
+  arduino.pinMode(ledPin, Arduino.OUTPUT);
+  
+  //
+  
+  
+  size(1280, 620);
   background(0, 0, 0);
   tint(255, 255);
   glass = loadImage("Images/glass1.png");
@@ -234,4 +243,3 @@ void keyPressed() {
     }
   }
 }
-
