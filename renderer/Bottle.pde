@@ -1,5 +1,5 @@
 class Bottle {
-  
+
   String bottleName;
   int locationX;
   int locationY;
@@ -8,22 +8,31 @@ class Bottle {
   boolean included = false; // If it's included in the recipe at all
   PImage sweep = loadImage("sweep2.png"); // Normal image
   PImage redSweep = loadImage("sweep2red.png"); // If this is the next one to be poured
-  
+
   Bottle(String name, int x, int y, int size) {
     bottleName = name;
     locationX = x;
     locationY = y;
     radius = size;
   };
-  
+
+  int[] location() {
+    return new int[locationX, locationY];
+  }
+
+  void moveToLocation(int x, int y) {
+    locationX = x;
+    locationY = y;
+  }
+
   boolean isSelected() {
     return selected;
   };
-  
+
   boolean isIncluded() {
     return included;
   }
-  
+
   boolean isHere(int mx, int my) {
     if (abs(mx - locationX) < 25 && abs(my - locationY) < 25) {
       return true;
@@ -31,16 +40,16 @@ class Bottle {
       return false;
     }
   }
-  
+
   void toggleSelect() {
     this.selected = this.selected ? false : true;
   }
-  
+
     void toggleIncluded() {
     this.included = this.included ? false : true;
   }
-    
-  
+
+
   void drawThis(int counter) {
     float deg = 3.0 * counter;
     pushMatrix();
@@ -65,9 +74,9 @@ class Bottle {
       line(this.locationX, this.locationY, width/2, 30);
     }
   }
-  
+
   String toString() {
     return this.bottleName;
   };
-  
+
 }
