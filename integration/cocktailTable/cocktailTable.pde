@@ -25,9 +25,11 @@ PImage glass;
 void setup() {
   // ARDUINO STUFF
   
-  println(Arduino.list());
-  arduino = new Arduino(this, Arduino.list()[2], 57600);
-  arduino.pinMode(ledPin, Arduino.OUTPUT);
+  //println(Arduino.list());
+  //arduino = new Arduino(this, Arduino.list()[0], 57600);
+  
+ // String portName = Serial.list()[0];
+  //port = new Serial(this, portName, 9600);
   
   //
   
@@ -45,6 +47,13 @@ void setup() {
 void draw() {
   // Clear background
   background(0, 0, 0);
+  
+  // Draw arduinostuff (testing)
+  /*fill(green);
+  textSize(18);
+  text(arduino.analogRead(0), width/2, height/2);*/
+  
+  
   // Draw the bottles
   for (Bottle bottle : bottles) {
     bottle.drawThis(counter, weight);
