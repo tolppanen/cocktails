@@ -3,8 +3,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 JSONArray json;
 
-int heightY = 620;
-int widthX = 1280;
+int heightY = 1050;
+int widthX = 1920;
 
 int counter = 0;
 int everyFourth = 0;
@@ -23,15 +23,11 @@ PImage glass;
 
 
 void setup() {
+
   // ARDUINO STUFF
+  arduino = new Arduino(this, Arduino.list()[2], 57600);
 
-  /*println(Arduino.list());
-  arduino = new Arduino(this, Arduino.list()[2], 57600);*/
-
-  //
-
-
-  size(1280, 620);
+  size(1920, 1050);
   background(0, 0, 0);
   testData();
   PFont myFont;
@@ -50,6 +46,11 @@ void setup() {
 void draw() {
   // Clear background
   background(0, 0, 0);
+
+  //ARDUINOSTUFF
+  fill(green);
+  text(arduino.analogRead(0), width/2, height/2);
+
   // Draw the bottles
   for (Bottle bottle : bottles) {
     bottle.drawThis(counter, weight);
@@ -121,12 +122,12 @@ void drawMenu() {
     stroke(green);
     strokeWeight(2);
     noFill();
-    ellipse((width - 240), ((height - i * 39) - 40), 28, 28);
+    ellipse((width - 350), ((height - i * 110) - 60), 90, 90);
     // Highlight the active recipe
     color thisColor = activeRecipe.equals(recipes.get(i)) ? red : green;
     fill(thisColor);
-    textSize(18);
-    text(recipes.get(i).toString(), width - 205, (height - i * 40) - 30);
+    textSize(42);
+    text(recipes.get(i).toString(), width - 250, (height - i * 110) - 60);
   }
 }
 
