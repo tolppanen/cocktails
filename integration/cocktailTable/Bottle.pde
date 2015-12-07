@@ -6,10 +6,10 @@ class Bottle {
   int radius;
   boolean selected = false; // If it's the one to be poured now
   boolean included = false; // If it's included in the recipe at all
-  PImage sweep = loadImage("Images/sweep3.png");
-  PImage redSweep = loadImage("Images/sweep3red.png");
-  PImage grid = loadImage("Images/pattern1green.png");
-  PImage gridRed = loadImage("Images/pattern1red.png");
+  PImage sweep = loadImage("Images/sweep3small.png");
+  PImage redSweep = loadImage("Images/sweep3redsmall.png");
+  PImage grid = loadImage("Images/pattern1greensmall.png");
+  PImage gridRed = loadImage("Images/pattern1redsmall.png");
 
   Bottle(Ingredient name, int x, int y, int size) {
     bottleName = name;
@@ -56,24 +56,25 @@ class Bottle {
     tint(255, 127);
     noStroke();
     fill(0, 0, 0);
-    ellipse(0, 0, radius*1.5, radius*1.5);
+    ellipse(0, 0, radius*3, radius*3);
     rotate(radians(-deg));
     imageMode(CENTER);
     if (this.isSelected()) {
-      image(redSweep, 0, 0, 1.5 * radius, 1.5 * radius);
-      image(gridRed, 0, 0, 1.5 * radius, 1.5 * radius);
+      //println("Is selected");
+      image(redSweep, 0, 0, 3 * radius, 3 * radius);
+      image(gridRed, 0, 0, 3 * radius, 3 * radius);
     } else {
-      image(sweep, 0, 0, 1.5 * radius, 1.5 * radius);
+      image(sweep, 0, 0, 3 * radius, 3 * radius);
       tint(255, 127);
-      image(grid, 0, 0, 1.5 * radius, 1.5 * radius);
+      image(grid, 0, 0, 3 * radius, 3* radius);
     }
 
     fill(color(0, 0, 0));
     stroke(0);
-    ellipse(0, 0, 50, 50);
-    strokeWeight(8);
+    ellipse(0, 0, 120, 120);
+    strokeWeight(10);
     noFill();
-    ellipse(0, 0, radius, radius);
+    ellipse(0, 0, radius*2, radius*2);
     tint(255, 255);
     popMatrix();
   }

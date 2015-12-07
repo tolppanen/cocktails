@@ -22,15 +22,16 @@ int currentStep, numberOfSteps;
 PImage glass;
 
 //ARDUINOSTUFF
-int fsrValue = 0;
-int c = 0;
+int fsrValue = 0; //stores the value from force sensitive resistor
+int c1 = 0; //counter to check if liquid has been poured
+int c2 = 0; //counter to make sure two phases dont pass at once
 //
 
 void setup() {
 
   // ARDUINO STUFF
-  println(Arduino.list());
-  arduino = new Arduino(this, "/dev/cu.usbmodem1421", 57600);
+  //println(Arduino.list());
+  arduino = new Arduino(this, "/dev/cu.usbmodem1411", 57600);
   //
 
   size(1920, 1050);
@@ -56,16 +57,18 @@ void draw() {
   //ARDUINOSTUFF
   fill(green);
   text(arduino.analogRead(0), width/2, height/2);
-  if (c == 50) {
-    if (arduino.analogRead(0) > 50 + fsrValue) {
+  if (c1 == 10) {
+    if (arduino.analogRead(0) > 50 + fsrValue && c2 > 3) {
       nextStep();
       drawCurrentPhase();
+      c2 = 0;
     } else {
-    c = 0;
+    fsrValue = arduino.analogRead(0);
+    c1 = 0;
     }
-  } else c += 1;
+  } else c1 += 1;
   //
-  
+
   // Draw the bottles
   for (Bottle bottle : bottles) {
     bottle.drawThis(counter, weight);
@@ -174,9 +177,11 @@ void testData() {
   // bottles.add(new Bottle(ingredients.get(3), 900, 300, 70));
   // bottles.add(new Bottle(ingredients.get(4), 1000, 200, 80));
 
-  bottles.add(new Bottle(ingredients.get(0), 90, 90, 50));
-  bottles.add(new Bottle(ingredients.get(1), 600, 200, 80));
-  bottles.add(new Bottle(ingredients.get(2), 180, 500, 100));
+  bottles.add(new Bottle(ingredients.get(0), 0, 0, 60));
+  bottles.add(new Bottle(ingredients.get(1), 0, 0, 80));
+  bottles.add(new Bottle(ingredients.get(2), 0, 0, 110));
+  bottles.add(new Bottle(ingredients.get(3), 0, 0, 120));
+  bottles.add(new Bottle(ingredients.get(4), 0, 0, 130));
 
   changeRecipe(0);
 }
@@ -251,7 +256,7 @@ void keyPressed() {
       int index = recipes.indexOf(activeRecipe);
       clearRecipe();
       int newIndex = (index == 0) ? recipes.size() - 1 : index - 1;
-      changeRecipe(newIndex);     
+      changeRecipe(newIndex);
       println(activeRecipe);
       println(activeRecipe.ingredientList);
     }
