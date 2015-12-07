@@ -122,12 +122,12 @@ void drawMenu() {
     stroke(green);
     strokeWeight(2);
     noFill();
-    ellipse((width - 350), ((height - i * 110) - 60), 90, 90);
+    ellipse(50, ((height - i * 110) - 60), 90, 90);
     // Highlight the active recipe
     color thisColor = activeRecipe.equals(recipes.get(i)) ? red : green;
     fill(thisColor);
     textSize(42);
-    text(recipes.get(i).toString(), width - 250, (height - i * 110) - 60);
+    text(recipes.get(i).toString(), 180, (height - i * 110) - 60);
   }
 }
 
