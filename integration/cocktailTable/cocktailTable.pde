@@ -37,6 +37,14 @@ void setup() {
   PFont myFont;
   myFont = createFont("Consolas", 24);
   textFont(myFont);
+
+  kinect = new Kinect(this);
+  kinect.initDepth();
+  kinect.initVideo();
+  // Lookup table for all possible depth values (0 - 2047)
+  for (int i = 0; i < depthLookUp.length; i++) {
+    depthLookUp[i] = rawDepthToMeters(i);
+  }
 }
 
 void draw() {
@@ -56,13 +64,14 @@ void draw() {
   }
   if (counter >= 30 && counter < 60) {
     everyFourth = 1;
-  } 
+  }
   if (counter >= 60 && counter < 90) {
     everyFourth = 2;
   }
   if (counter >= 90 && counter <= 120) {
     everyFourth = 3;
   }
+  trackBottles();
 }
 
 void drawGlass() {
@@ -71,7 +80,7 @@ void drawGlass() {
   fill(0);
   ellipse(widthX/2, heightY-80, 124, 124);
 
-  fill(96, 255, 75, 127); 
+  fill(96, 255, 75, 127);
   ellipse(widthX/2, heightY-80, 124, 124);     // background green glass
 
   if (weight == 0) {            // only do this if glass is not set on table
@@ -83,7 +92,7 @@ void drawGlass() {
 
     if (everyFourth == 1) {
       noStroke();
-      fill(0, 0, 0); 
+      fill(0, 0, 0);
       ellipse(widthX/2, heightY-80, 120, 120);
 
       fill(96, 255, 75, 127);
@@ -98,10 +107,10 @@ void drawGlass() {
 
     if (everyFourth == 3) {
       noStroke();
-      fill(0, 0, 0); 
+      fill(0, 0, 0);
       ellipse(widthX/2, heightY-80, 120, 120);
 
-      fill(96, 255, 75, 127); 
+      fill(96, 255, 75, 127);
       ellipse(widthX/2, heightY-80, min(120, (counter - 90) * 4), min(120, (counter - 90) * 4));  // green, 4th
     }
   }
@@ -121,10 +130,10 @@ void drawMenu() {
   }
 }
 
-// The following pieces of code are here for testing: 
+// The following pieces of code are here for testing:
 // Dummy data & mouse events for controlling the bottles.
 
-void testData() {  
+void testData() {
   json = loadJSONArray("data.json");
   bottles = new ArrayList<Bottle>();
   recipes = new ArrayList<Cocktail>();
@@ -142,12 +151,16 @@ void testData() {
       //cocktailName.ingredients.put(getOrCreate(currentRecipe.getString("ingredient")), currentRecipe.getFloat("amount"));
     }
   }
-  //add some bottles on the table 
+  //add some bottles on the table
+  // bottles.add(new Bottle(ingredients.get(0), 90, 90, 50));
+  // bottles.add(new Bottle(ingredients.get(1), 600, 200, 80));
+  // bottles.add(new Bottle(ingredients.get(2), 180, 500, 100));
+  // bottles.add(new Bottle(ingredients.get(3), 900, 300, 70));
+  // bottles.add(new Bottle(ingredients.get(4), 1000, 200, 80));
+
   bottles.add(new Bottle(ingredients.get(0), 90, 90, 50));
   bottles.add(new Bottle(ingredients.get(1), 600, 200, 80));
   bottles.add(new Bottle(ingredients.get(2), 180, 500, 100));
-  bottles.add(new Bottle(ingredients.get(3), 900, 300, 70));
-  bottles.add(new Bottle(ingredients.get(4), 1000, 200, 80));
 
   changeRecipe(0);
 }
@@ -174,7 +187,7 @@ void changeRecipe(int selector) {
   drawCurrentPhase();
 }
 
-void drawCurrentPhase() {  
+void drawCurrentPhase() {
   String currentIngredient = activeRecipe.getIngredientNo(currentStep).toString();
   boolean found = false;
   for (Bottle bottle : bottles) {
@@ -240,4 +253,3 @@ void keyPressed() {
     }
   }
 }
-

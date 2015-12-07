@@ -18,6 +18,18 @@ class Bottle {
     radius = size;
   };
 
+  int[] location() {
+    int[] res = new int[2];
+    res[0] = locationX;
+    res[1] = locationY;
+    return res;
+  }
+
+  void moveToLocation(int x, int y) {
+    locationX = x;
+    locationY = y;
+  }
+
   boolean isSelected() {
     return selected;
   };
@@ -55,7 +67,7 @@ class Bottle {
       tint(255, 127);
       image(grid, 0, 0, 1.5 * radius, 1.5 * radius);
     }
-    
+
     fill(color(0, 0, 0));
     stroke(0);
     ellipse(0, 0, 50, 50);
@@ -83,4 +95,3 @@ class Bottle {
     return this.bottleName.toString();
   };
 }
-
