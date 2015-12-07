@@ -21,11 +21,17 @@ int currentStep, numberOfSteps;
 
 PImage glass;
 
+//ARDUINOSTUFF
+int fsrValue = 0;
+int c = 0;
+//
 
 void setup() {
   
   // ARDUINO STUFF
-  arduino = new Arduino(this, Arduino.list()[2], 57600);
+  println(Arduino.list());
+  arduino = new Arduino(this, "/dev/cu.usbmodem1421", 57600);
+  //
 
   size(1920, 1050);
   background(0, 0, 0);
@@ -42,6 +48,15 @@ void draw() {
   //ARDUINOSTUFF
   fill(green);
   text(arduino.analogRead(0), width/2, height/2);
+  if (c == 50) {
+    if (arduino.analogRead(0) > 50 + fsrValue) {
+      nextStep();
+      drawCurrentPhase();
+    } else {
+    c = 0;
+    }
+  } else c += 1;
+  //
   
   // Draw the bottles
   for (Bottle bottle : bottles) {
@@ -173,6 +188,7 @@ void changeRecipe(int selector) {
   numberOfSteps = activeRecipe.ingredientList.size();
   currentStep = 0;
   drawCurrentPhase();
+  fsrValue = arduino.analogRead(0);
 }
 
 void drawCurrentPhase() {  
@@ -197,6 +213,7 @@ void drawCurrentPhase() {
 
 void nextStep() {
   currentStep += 1;
+  fsrValue = arduino.analogRead(0);
 }
 
 void clearRecipe() {
@@ -221,7 +238,7 @@ void keyPressed() {
       int index = recipes.indexOf(activeRecipe);
       clearRecipe();
       int newIndex = (index == 0) ? recipes.size() - 1 : index - 1;
-      changeRecipe(newIndex);
+      changeRecipe(newIndex);     
       println(activeRecipe);
       println(activeRecipe.ingredientList);
     }
