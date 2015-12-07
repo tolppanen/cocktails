@@ -23,13 +23,9 @@ PImage glass;
 
 
 void setup() {
+  
   // ARDUINO STUFF
-
-  /*println(Arduino.list());
-  arduino = new Arduino(this, Arduino.list()[2], 57600);*/
-
-  //
-
+  arduino = new Arduino(this, Arduino.list()[2], 57600);
 
   size(1920, 1050);
   background(0, 0, 0);
@@ -42,6 +38,11 @@ void setup() {
 void draw() {
   // Clear background
   background(0, 0, 0);
+  
+  //ARDUINOSTUFF
+  fill(green);
+  text(arduino.analogRead(0), width/2, height/2);
+  
   // Draw the bottles
   for (Bottle bottle : bottles) {
     bottle.drawThis(counter, weight);
@@ -240,4 +241,3 @@ void keyPressed() {
     }
   }
 }
-
